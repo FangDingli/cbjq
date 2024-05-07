@@ -22,19 +22,6 @@ export default defineConfig({
       targets: browserslistToTargets(browserslist('last 2 versions')),
     },
   },
-  server: {
-    port: 3000,
-    proxy: {
-      '/devServer': {
-        target: 'https://www.qiyuanyuan.live/bwgapiproxy/v1',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/devServer/, ''),
-      },
-    },
-    fs: {
-      strict: false,
-    },
-  },
   plugins: [
     // https://github.com/posva/unplugin-vue-router
     // VueRouter(),
@@ -52,7 +39,7 @@ export default defineConfig({
         '@vueuse/core',
         // VueRouterAutoImports,
         {
-          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
+          'naive-ui': ['useMessage'],
         },
       ],
       resolvers: [NaiveUiResolver()],
