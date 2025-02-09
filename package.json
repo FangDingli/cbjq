@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build --base=/cbjq/",
+    "build": "vite build --base=./",
     "lint": "eslint .",
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview"
