@@ -11,6 +11,10 @@ import { browserslistToTargets } from 'lightningcss'
 import browserslist from 'browserslist'
 
 export default defineConfig({
+  build: {
+    outDir: '.', // 将构建文件输出到当前目录
+    base: './'   // 设置基础路径为相对路径
+  },
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
