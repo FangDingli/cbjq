@@ -1,19 +1,18 @@
 import path from 'node:path'
-import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import VueMacros from 'unplugin-vue-macros/vite'
+import browserslist from 'browserslist'
+import { browserslistToTargets } from 'lightningcss'
+import UnoCss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import Icons from 'unplugin-icons/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
-import UnoCss from 'unocss/vite'
-import Icons from 'unplugin-icons/vite'
-import { browserslistToTargets } from 'lightningcss'
-import browserslist from 'browserslist'
+import VueMacros from 'unplugin-vue-macros/vite'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-  build: {
-    outDir: '.', // 将构建文件输出到当前目录
-    base: './'   // 设置基础路径为相对路径
+  server: {
+    port: 3000,
   },
   resolve: {
     alias: {
