@@ -11,6 +11,8 @@
 
 基于 Vue3 + TypeScript + Naive-ui 重新画了下页面，核心代码均来自以上项目
 
-孩子写着玩的
+效果预览
+
+![信源分析工具-加强版-截图-Snipaste_2025-02-10_00-07-02](./public/信源分析工具-加强版-截图-Snipaste_2025-02-10_00-07-02.png)
 
 [我的Bilibili主页](https://space.bilibili.com/23598218)

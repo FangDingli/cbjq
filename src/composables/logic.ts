@@ -169,7 +169,7 @@ export class Xyyx {
     console.log(this.state.value)
   }
 
-  computeAllResolution(serialNumberArr: number[]) {
+  computeAllResolution(serialNumberArr: number[], percentage?: number) {
     this.m = this.board.length
     this.n = this.board[0].length
     this.a = Array.from({ length: this.m }, () => [])
@@ -184,7 +184,12 @@ export class Xyyx {
     this.l = serialNumberArr.map(x => x)
     // console.log(this.a, this.l)
 
-    this.dfs(0)
+    const totalCells = this.m * this.n
+    const targetCount = percentage 
+      ? Math.floor(totalCells * percentage)
+      : totalCells
+
+    this.dfs(0, 0, targetCount)
     // console.log(this.allResult)
 
     if (!this.allResult.length) {
@@ -222,8 +227,12 @@ export class Xyyx {
     }
   }
 
-  dfs(p: number) {
-    if (p === this.m * this.n) {
+  dfs(p: number, filled: number, target: number) {
+    // 提前终止条件：已填充数量达到目标
+    if (filled >= target) return this.recordSolution()
+    
+    // 正常终止条件：处理完所有格子
+    if (p >= this.m * this.n) {
       const x = Array.from({ length: this.m }, () => []) as number[][]
       for (let i = 0; i < this.m; ++i) {
         x[i] = this.a[i].map(x => x)
@@ -238,7 +247,7 @@ export class Xyyx {
     const x = Math.floor(p / this.n)
     const y = p % this.n
     if (this.a[x][y] !== -1) {
-      if (this.dfs(p + 1)) return true
+      if (this.dfs(p + 1, filled, target)) return true
       return false
     }
 
@@ -248,11 +257,25 @@ export class Xyyx {
         if (!this.canPlaceBlock(x, y, b, d)) continue
         this.placeBlock(x, y, b, d, b + 1)
         --this.l[b]
-        if (this.dfs(p + 1)) return true
+        
+        // 计算本次放置新增的填充格子数
+        const addedCells = this.countNewFilledCells(x, y, b, d)
+        if (this.dfs(p + 1, filled + addedCells, target)) return true
+        
         ++this.l[b]
         this.placeBlock(x, y, b, d, -1)
       }
     }
     return false
+  }
+
+  private countNewFilledCells(x: number, y: number, b: number, d: number): number {
+    const pat = this.blockShape[b][d]
+    return pat.flat().filter(v => v > 0).length
+  }
+
+  private recordSolution(): boolean {
+    this.allResult.push(this.a.map(row => [...row]))
+    return this.allResult.length >= 10000 // 保持原有限制
   }
 }
