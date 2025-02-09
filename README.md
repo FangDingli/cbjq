@@ -13,6 +13,6 @@
 
 效果预览
 
-![信源分析工具-加强版-截图-Snipaste_2025-02-10_00-07-02](./public/信源分析工具-加强版-截图-Snipaste_2025-02-10_00-07-02.png)
+![信源分析工具-加强版-截图-Snipaste_2025-02-10_00-07-02](./preview.png)
 
 [我的Bilibili主页](https://space.bilibili.com/23598218)
