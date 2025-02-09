@@ -80,6 +80,16 @@ const handleAllResultClick = () => {
   }, 500)
 }
 
+  const handlePercentageResult = (percentage: number) => {
+    isLoading = true
+    setTimeout(() => {
+      resultState.allResultTotal = xyyx.computeAllResolution(serialNumberArr, percentage)
+      filterAllResult()
+      isLoading = false
+    }, 500)
+  }
+  
+
 let filterdResultArr = $shallowRef<number[][][]>([])
 
 const filterAllResult = () => {
@@ -105,6 +115,15 @@ const filterAllResult = () => {
   resultState.displayArrMaxPageNum = Math.ceil(filterdResultArr.length / resultState.pageSize)
   getDisplayBlocks(1)
   // console.log(filterdResultArr.length)
+}
+
+const handleReset = () => {
+  filterdResultArr = []
+  displayBlocks = []
+  resultState.pageNum = 1
+  resultState.allResultTotal = 0
+  xyyx.reset(colRowData.rowNumber, colRowData.colNumber)
+  localStorage.removeItem('cbjqxyyxCache')
 }
 </script>
 
@@ -195,9 +214,14 @@ const filterAllResult = () => {
               </NInputNumber>
             </NGridItem>
             <NGridItem>
-              <NButton :loading="isLoading" type="primary" @click="handleAllResultClick"
-                >计算完美结果</NButton
-              >
+             <div class="flex gap-2" style="min-width: max-content; flex-wrap: nowrap;">
+                <NButton :loading="isLoading" type="primary" @click="handleAllResultClick">
+                  计算完美结果
+                </NButton><NButton type="error" @click="handleReset">重置</NButton>
+                <NButton :loading="isLoading" type="warning" @click="handlePercentageResult(0.9)">计算90%效果</NButton>
+                <NButton :loading="isLoading" type="warning" @click="handlePercentageResult(0.8)">计算80%效果</NButton>
+                
+              </div>
             </NGridItem>
           </NGrid>
         </div>
